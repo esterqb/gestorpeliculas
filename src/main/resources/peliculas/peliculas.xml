@@ -1,0 +1,23 @@
+<peliculas>
+    <pelicula>
+        <titulo>Gladiator</titulo>
+        <duracion>155</duracion>
+        <fechaEstreno>2000-05-05</fechaEstreno>
+        <sinopsis>Un general romano traicionado busca venganza en la arena.</sinopsis>
+        <director>Ridley Scott</director>
+    </pelicula>
+    <pelicula>
+        <titulo>La La Land</titulo>
+        <duracion>128</duracion>
+        <fechaEstreno>2016-12-09</fechaEstreno>
+        <sinopsis>Un músico y una actriz luchan por cumplir sus sueños en Los Ángeles.</sinopsis>
+        <director>Damien Chazelle</director>
+    </pelicula>
+    <pelicula>
+        <titulo>The Matrix</titulo>
+        <duracion>136</duracion>
+        <fechaEstreno>1999-03-31</fechaEstreno>
+        <sinopsis>Un hacker descubre que el mundo que conoce es una simulación.</sinopsis>
+        <director>Lana Wachowski</director>
+    </pelicula>
+</peliculas>
