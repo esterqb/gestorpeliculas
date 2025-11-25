@@ -1,8 +1,10 @@
-package domain;
+package com.dam2.gestorpeliculas.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -11,32 +13,30 @@ import java.util.List;
 @AllArgsConstructor      // ✅ genera constructor con todos los campos
 @NoArgsConstructor
 public class Pelicula {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 120)
     private String titulo;
-
-    private int duracion;              // minutos
-
-    @Column(name = "fecha_estreno")
+    private int duracion;
     private LocalDate fechaEstreno;
-
     private String sinopsis;
-
     private int valoracion;
 
     @OneToOne
-    @JoinColumn(name = "ficha_id") // FK en la tabla Pelicula
     private FichaTecnica fichaTecnica;
 
     @ManyToOne
-    @JoinColumn(name = "director_id", nullable = false) // FK en PELICULA
     private Director director;
 
-    @ManyToMany(mappedBy = "peliculas")
-    private List<Actor> actors;
+    @ManyToMany
+    @JsonIgnore
+    private List<Actor> actores = new ArrayList<>();
 
+    public void addActor(Actor actor){
+        if(!actores.contains(actor)){
+            actores.add(actor);
+            actor.getPeliculas().add(this);
+        }
+    }
 }

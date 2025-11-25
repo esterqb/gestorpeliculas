@@ -1,4 +1,4 @@
-package config;
+package com.dam2.gestorpeliculas.config;
 
 import org.springframework.context.annotation.*;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -13,7 +13,7 @@ public class AsyncConfig {
         ThreadPoolTaskExecutor ex = new ThreadPoolTaskExecutor();
         ex.setCorePoolSize(3);
         ex.setMaxPoolSize(6);
-        ex.setQueueCapacity(20);
+        ex.setQueueCapacity(1000);
         ex.setThreadNamePrefix("psp-");
         ex.initialize();
         return ex;

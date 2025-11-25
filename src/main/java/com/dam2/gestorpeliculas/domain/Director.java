@@ -1,15 +1,18 @@
-package domain;
+package com.dam2.gestorpeliculas.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
-@Table(name = "director")
-@Data  // ✅ Lombok genera getters, setters, toString, equals, hashCode
-@AllArgsConstructor      // ✅ genera constructor con todos los campos
+@Table(name = "directores")
+@Data
+@AllArgsConstructor
 @NoArgsConstructor
 public class Director {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,7 +20,9 @@ public class Director {
     @Column(nullable = false, unique = true)
     private String nombre;
 
-    // Relación 1:N con Pelicula
+    // Relación 1:N con película
     @OneToMany(mappedBy = "director")
+    @JsonIgnore
     private List<Pelicula> peliculas;
+
 }
