@@ -52,30 +52,32 @@ public class DataLoader {
             // PELÍCULAS
             // ----------------------
             Pelicula interstellar = peliculaRepo.findByTitulo("Interstellar")
-                    .orElseGet(() -> peliculaRepo.save(new Pelicula(
-                            null,
-                            "Interstellar",
-                            169,
-                            LocalDate.of(2014, 11, 7),
-                            "Exploradores espaciales viajan a través de un agujero de gusano...",
-                            9,
-                            f1,
-                            nolan,
-                            new ArrayList<>()
-                    )));
+                    .orElseGet(() -> {
+                        Pelicula p = new Pelicula();
+                        p.setTitulo("Interstellar");
+                        p.setDuracion(169);
+                        p.setFechaEstreno(LocalDate.of(2014, 11, 7));
+                        p.setSinopsis("Exploradores espaciales viajan a través de un agujero de gusano...");
+                        p.setValoracion(9);
+                        p.setFichaTecnica(f1);
+                        p.setDirector(nolan);
+                        return peliculaRepo.save(p);
+                    });
+
 
             Pelicula soul = peliculaRepo.findByTitulo("Soul")
-                    .orElseGet(() -> peliculaRepo.save(new Pelicula(
-                            null,
-                            "Soul",
-                            100,
-                            LocalDate.of(2020, 12, 25),
-                            "Un músico descubre el verdadero sentido de la vida...",
-                            8,
-                            f2,
-                            docter,
-                            new ArrayList<>()
-                    )));
+                    .orElseGet(() -> {
+                        Pelicula p = new Pelicula();
+                        p.setTitulo("Soul");
+                        p.setDuracion(100);
+                        p.setFechaEstreno(LocalDate.of(2020, 12, 25));
+                        p.setSinopsis("Un músico descubre el verdadero sentido de la vida...");
+                        p.setValoracion(8);
+                        p.setFichaTecnica(f2);
+                        p.setDirector(docter);
+                        return peliculaRepo.save(p);
+                    });
+
 
             // ----------------------
             // ACTORES
