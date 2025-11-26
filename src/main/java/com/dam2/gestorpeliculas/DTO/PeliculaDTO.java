@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -16,4 +17,12 @@ public class PeliculaDTO {
     private LocalDate fechaEstreno;
     private String sinopsis;
     private Integer valoracion;
+
+    private Long fichaTecnicaId;
+    private Long directorId;
+
+    private List<Long> actoresIds;
+    private List<Long> plataformasIds;
+    private List<Long> idiomasIds;
+    private List<Long> categoriasIds;
 }

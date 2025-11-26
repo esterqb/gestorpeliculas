@@ -1,9 +1,11 @@
 package com.dam2.gestorpeliculas.web;
 
 import com.dam2.gestorpeliculas.Async.PeliculaAsyncService;
+import com.dam2.gestorpeliculas.DTO.PeliculaCreateUpdateDTO;
 import com.dam2.gestorpeliculas.DTO.PeliculaDTO;
 import com.dam2.gestorpeliculas.domain.Pelicula;
 import com.dam2.gestorpeliculas.service.PeliculaService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -63,9 +65,27 @@ public class PeliculaController {
     }
 
     // Agregar nueva película
+//    @PostMapping
+//    public void agregar(@RequestBody Pelicula pelicula) {
+//        peliculaService.agregar(pelicula);
+//    }
     @PostMapping
-    public void agregar(@RequestBody Pelicula pelicula) {
-        peliculaService.agregar(pelicula);
+    public ResponseEntity<PeliculaDTO> crear(@RequestBody PeliculaCreateUpdateDTO dto) {
+        return ResponseEntity.ok(peliculaService.crear(dto));
+    }
+
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PeliculaDTO> actualizar(@PathVariable Long id, @RequestBody PeliculaCreateUpdateDTO dto) {
+        PeliculaDTO actualizado = peliculaService.actualizar(id, dto);
+        return actualizado != null ? ResponseEntity.ok(actualizado) : ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> borrar(@PathVariable Long id) {
+        return peliculaService.borrar(id)
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.notFound().build();
     }
 
     // Películas mejores
@@ -77,7 +97,7 @@ public class PeliculaController {
     // Votar Oscar
     @GetMapping("/oscar")
     public HashMap<String, Integer> oscar() {
-        return peliculaAsyncService.simularVotacionesAleatorias(50); // o el número de votaciones que quieras
+        return peliculaAsyncService.simularVotacionesAleatorias(50); //num de votaciones
     }
 
 
