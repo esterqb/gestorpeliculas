@@ -16,7 +16,7 @@ public class Pelicula {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(nullable = false,length = 120)
     private String titulo;
     private int duracion;
     private LocalDate fechaEstreno;
@@ -39,4 +39,17 @@ public class Pelicula {
             actor.getPeliculas().add(this);
         }
     }
+
+    @ManyToMany
+    @JsonIgnore
+    private List<Plataforma> plataformas = new ArrayList<>();
+
+    @ManyToMany
+    @JsonIgnore
+    private List<Categoria> categorias = new ArrayList<>();
+
+    @ManyToMany
+    @JsonIgnore
+    private List<Idioma> idiomas = new ArrayList<>();
+
 }
