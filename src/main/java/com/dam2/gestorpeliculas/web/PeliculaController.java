@@ -30,7 +30,7 @@ public class PeliculaController {
         return peliculaService.listar();
     }
 
-    // Buscar película por ID
+    // Buscar película por ID poner excepcion si no existe:responsestatusexception(EN PSP)
     @GetMapping("/{id}")
     public PeliculaDTO buscarPorId(@PathVariable Long id) {
         return peliculaService.buscarPorId(id);

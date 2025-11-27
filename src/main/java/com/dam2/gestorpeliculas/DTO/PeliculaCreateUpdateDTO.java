@@ -11,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PeliculaCreateUpdateDTO {
+    //Añadir notblank etc a cada atributo
     private String titulo;
     private Integer duracion;
     private LocalDate fechaEstreno;
