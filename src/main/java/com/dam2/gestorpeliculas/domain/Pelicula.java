@@ -23,9 +23,6 @@ public class Pelicula {
     private String sinopsis;
     private int valoracion;
 
-    @OneToOne
-    private FichaTecnica fichaTecnica;
-
     @ManyToOne
     private Director director;
 
@@ -33,12 +30,16 @@ public class Pelicula {
     @JsonIgnore
     private List<Actor> actores = new ArrayList<>();
 
-    public void addActor(Actor actor){
-        if(!actores.contains(actor)){
+    public void addActor(Actor actor) {
+        if (!actores.contains(actor)) {
             actores.add(actor);
+        }
+        if (!actor.getPeliculas().contains(this)) {
             actor.getPeliculas().add(this);
         }
     }
+
+
 
     @ManyToMany
     @JsonIgnore

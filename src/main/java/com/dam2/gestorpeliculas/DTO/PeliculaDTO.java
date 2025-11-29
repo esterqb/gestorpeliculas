@@ -1,5 +1,6 @@
 package com.dam2.gestorpeliculas.DTO;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,6 @@ public class PeliculaDTO {
     private String sinopsis;
     private Integer valoracion;
 
-    private Long fichaTecnicaId;
     private Long directorId;
 
     private List<Long> actoresIds;

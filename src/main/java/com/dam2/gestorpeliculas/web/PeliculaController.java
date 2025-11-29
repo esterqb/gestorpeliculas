@@ -5,6 +5,7 @@ import com.dam2.gestorpeliculas.DTO.PeliculaCreateUpdateDTO;
 import com.dam2.gestorpeliculas.DTO.PeliculaDTO;
 import com.dam2.gestorpeliculas.domain.Pelicula;
 import com.dam2.gestorpeliculas.service.PeliculaService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,12 +30,14 @@ public class PeliculaController {
     public List<PeliculaDTO> listar() {
         return peliculaService.listar();
     }
-
     // Buscar película por ID poner excepcion si no existe:responsestatusexception(EN PSP)
     @GetMapping("/{id}")
-    public PeliculaDTO buscarPorId(@PathVariable Long id) {
-        return peliculaService.buscarPorId(id);
+    public ResponseEntity<PeliculaDTO> buscarPorId(@PathVariable Long id) {
+        PeliculaDTO dto = peliculaService.buscarPorId(id);
+        return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
     }
+
+
 
     // Ejercicio Sync
     @GetMapping("/sync")
@@ -70,13 +73,13 @@ public class PeliculaController {
 //        peliculaService.agregar(pelicula);
 //    }
     @PostMapping
-    public ResponseEntity<PeliculaDTO> crear(@RequestBody PeliculaCreateUpdateDTO dto) {
+    public ResponseEntity<PeliculaDTO> crear(@Valid @RequestBody PeliculaCreateUpdateDTO dto) {
         return ResponseEntity.ok(peliculaService.crear(dto));
     }
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<PeliculaDTO> actualizar(@PathVariable Long id, @RequestBody PeliculaCreateUpdateDTO dto) {
+    public ResponseEntity<PeliculaDTO> actualizar(@PathVariable Long id, @Valid @RequestBody PeliculaCreateUpdateDTO dto) {
         PeliculaDTO actualizado = peliculaService.actualizar(id, dto);
         return actualizado != null ? ResponseEntity.ok(actualizado) : ResponseEntity.notFound().build();
     }

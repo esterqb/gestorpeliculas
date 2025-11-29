@@ -26,9 +26,35 @@ public class Actor {
     @JsonIgnore
     private List<Pelicula> peliculas = new ArrayList<>();
 
+//    public void addPelicula(Pelicula pelicula) {
+//        if (!peliculas.contains(pelicula)) {
+//            peliculas.add(pelicula);
+//            pelicula.getActores().add(this);
+//        }
+//    }
+
+//    public void addPelicula(Pelicula pelicula) {
+//        if (peliculas == null) {
+//            peliculas = new ArrayList<>();
+//        }
+//        if (!peliculas.stream().anyMatch(p -> p.getId() != null && p.getId().equals(pelicula.getId()))) {
+//            peliculas.add(pelicula);
+//
+//            if (pelicula.getActores() == null) {
+//                pelicula.setActores(new ArrayList<>());
+//            }
+//            pelicula.getActores().add(this);
+//        }
+//    }
+//    public void addPelicula(Pelicula pelicula) {
+//        peliculas.add(pelicula);
+//        pelicula.getActores().add(this);
+//    }
     public void addPelicula(Pelicula pelicula) {
         if (!peliculas.contains(pelicula)) {
             peliculas.add(pelicula);
+        }
+        if (!pelicula.getActores().contains(this)) {
             pelicula.getActores().add(this);
         }
     }

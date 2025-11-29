@@ -4,6 +4,7 @@ package com.dam2.gestorpeliculas.service;
 import com.dam2.gestorpeliculas.DTO.PeliculaCreateUpdateDTO;
 import com.dam2.gestorpeliculas.DTO.PeliculaDTO;
 import com.dam2.gestorpeliculas.domain.*;
+import com.dam2.gestorpeliculas.exception.PeliculaNoEncontradaException;
 import com.dam2.gestorpeliculas.repository.*;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,26 +17,15 @@ import java.util.stream.Collectors;
 
 @Service
 @Getter
+@AllArgsConstructor
 public class PeliculaService {
     private final DirectorRepository directorRepo;
-    private final FichaTecnicaRepository fichaRepo;
     private final ActorRepository actorRepo;
     private final PlataformaRepository plataformaRepo;
     private final IdiomaRepository idiomaRepo;
     private final CategoriaRepository categoriaRepo;
-    @Autowired
-    private PeliculaRepository peliculaRepository;
+    private final PeliculaRepository peliculaRepository;
 
-
-    public PeliculaService(PeliculaRepository peliculaRepository, DirectorRepository directorRepo, FichaTecnicaRepository fichaRepo, ActorRepository actorRepo, PlataformaRepository plataformaRepo, IdiomaRepository idiomaRepo, CategoriaRepository categoriaRepo) {
-        this.peliculaRepository = peliculaRepository;
-        this.directorRepo = directorRepo;
-        this.fichaRepo = fichaRepo;
-        this.actorRepo = actorRepo;
-        this.plataformaRepo = plataformaRepo;
-        this.idiomaRepo = idiomaRepo;
-        this.categoriaRepo = categoriaRepo;
-    }
 
     public List<PeliculaDTO> listar() {
         return peliculaRepository.findAll()
@@ -52,7 +42,6 @@ public class PeliculaService {
                 p.getFechaEstreno(),
                 p.getSinopsis(),
                 p.getValoracion(),
-                p.getFichaTecnica() != null ? p.getFichaTecnica().getId() : null,
                 p.getDirector() != null ? p.getDirector().getId() : null,
                 p.getActores().stream().map(Actor::getId).toList(),
                 p.getPlataformas().stream().map(Plataforma::getId).toList(),
@@ -62,9 +51,9 @@ public class PeliculaService {
     }
 
     public PeliculaDTO buscarPorId(Long id) {
-        return peliculaRepository.findById(id)
-                .map(this::toDTO)
-                .orElse(null);
+        Pelicula pelicula = peliculaRepository.findById(id)
+                .orElseThrow(() -> new PeliculaNoEncontradaException(id));
+        return toDTO(pelicula);
     }
 
 
@@ -91,7 +80,6 @@ public class PeliculaService {
         p.setValoracion(dto.getValoracion());
 
         // Relaciones
-        fichaRepo.findById(dto.getFichaTecnicaId()).ifPresent(p::setFichaTecnica);
         directorRepo.findById(dto.getDirectorId()).ifPresent(p::setDirector);
 
         if (dto.getActoresIds() != null) {
@@ -122,7 +110,6 @@ public class PeliculaService {
             p.setValoracion(dto.getValoracion());
 
             // Relaciones
-            fichaRepo.findById(dto.getFichaTecnicaId()).ifPresent(p::setFichaTecnica);
             directorRepo.findById(dto.getDirectorId()).ifPresent(p::setDirector);
 
             p.getActores().clear();
