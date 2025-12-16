@@ -42,6 +42,8 @@ public class PeliculaService {
                 p.getFechaEstreno(),
                 p.getSinopsis(),
                 p.getValoracion(),
+                p.getTmdbId(),
+                p.getPosterUrl(),
                 p.getDirector() != null ? p.getDirector().getId() : null,
                 p.getActores().stream().map(Actor::getId).toList(),
                 p.getPlataformas().stream().map(Plataforma::getId).toList(),

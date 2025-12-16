@@ -19,6 +19,10 @@ public class PeliculaDTO {
     private String sinopsis;
     private Integer valoracion;
 
+    //React
+    private Integer tmdbId;
+    private String posterUrl;
+
     private Long directorId;
 
     private List<Long> actoresIds;

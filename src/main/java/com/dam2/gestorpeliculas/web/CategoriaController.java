@@ -10,6 +10,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/categorias")
+// 🚀 AÑADIDO CLAVE: Permite peticiones desde tu frontend de React (u otro origen)
+@CrossOrigin(origins = "http://localhost:5173")
 public class CategoriaController {
 
     private final CategoriaService service;

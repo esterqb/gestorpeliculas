@@ -23,6 +23,11 @@ public class Pelicula {
     private String sinopsis;
     private int valoracion;
 
+    //React
+    @Column(unique = true)
+    private Integer tmdbId;
+    private String posterUrl;
+
     @ManyToOne
     private Director director;
 
